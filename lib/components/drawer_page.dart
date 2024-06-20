@@ -28,14 +28,11 @@ class DrawerPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.2,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 100),
-                      child: Image.asset(
-                        'assets/images/Ellipse 11.png',
-                        height: MediaQuery.of(context).size.height / 2.2,
-                      ),
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Image.asset('assets/images/Ellipse 11.png'),
                     ),
                   ),
                   Column(
@@ -150,8 +147,8 @@ class DrawerPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.2,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: Image.asset('assets/images/Ellipse 11.png'),
