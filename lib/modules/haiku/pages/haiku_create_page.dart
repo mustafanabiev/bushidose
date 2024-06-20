@@ -178,7 +178,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 15, 15, 15),
+            padding: const EdgeInsets.fromLTRB(0, 15, 15, 40),
             child: Column(
               children: [
                 Row(
