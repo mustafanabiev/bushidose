@@ -1,4 +1,5 @@
 import 'package:bushidose/models/codex_model.dart';
+import 'package:bushidose/theme/app_colors.dart';
 import 'package:bushidose/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +12,7 @@ class CodexDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bg,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),

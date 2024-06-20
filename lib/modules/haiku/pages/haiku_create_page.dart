@@ -8,12 +8,14 @@ import 'package:bushidose/models/haiku_create_model.dart';
 import 'package:bushidose/modules/haiku/cubit/haiku_cubit.dart';
 import 'package:bushidose/modules/haiku/pages/publish_page.dart';
 import 'package:bushidose/theme/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HaikuCreatePage extends StatefulWidget {
@@ -121,21 +123,53 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
   }
 
   Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      Uint8List imageData = await pickedFile.readAsBytes();
-      setState(() {
-        images.add(imageData);
-      });
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      List<String> imageBase64List =
-          images.map((image) => base64Encode(image)).toList();
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedFile =
+          await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        Uint8List imageData = await pickedFile.readAsBytes();
+        setState(() {
+          images.add(imageData);
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        List<String> imageBase64List =
+            images.map((image) => base64Encode(image)).toList();
 
-      await prefs.setStringList('cached_images', imageBase64List);
+        await prefs.setStringList('cached_images', imageBase64List);
+      }
+    } catch (e) {
+      var status = await Permission.photos.status;
+      if (status.isDenied) {
+        // ignore: use_build_context_synchronously
+        showAlertDialog(context);
+      } else {
+        return;
+      }
     }
   }
+
+  void showAlertDialog(BuildContext context) => showCupertinoDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: const Text('Permission Denied'),
+            content: const Text('Allow access to gallery and photos'),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                onPressed: () => openAppSettings(),
+                child: const Text('Settings'),
+              ),
+            ],
+          );
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
