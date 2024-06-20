@@ -165,9 +165,11 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                       },
                       child: Row(
                         children: [
-                          const Text(
-                            'Try magic write',
-                            style: TextStyle(
+                          Text(
+                            !isTryMagic
+                                ? 'Try magic write'
+                                : 'Quit magic write',
+                            style: const TextStyle(
                               fontFamily: 'Inter',
                               color: Color(0xffB9B9B9),
                               fontSize: 12,
@@ -178,7 +180,9 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                             textAlign: TextAlign.left,
                           ),
                           const SizedBox(width: 8),
-                          SvgPicture.asset('assets/icons/star.svg'),
+                          !isTryMagic
+                              ? SvgPicture.asset('assets/icons/star.svg')
+                              : SvgPicture.asset('assets/icons/star_2.svg'),
                         ],
                       ),
                     ),
