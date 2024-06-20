@@ -58,7 +58,7 @@ class DateUtils {
   }
 
   static Iterable<DateTime> daysRange(DateTime first, DateTime last) {
-    var listOfDates = new List<DateTime>.generate(
+    var listOfDates = List<DateTime>.generate(
         last.day, (i) => DateTime(first.year, first.month, i + 1));
     return listOfDates;
   }

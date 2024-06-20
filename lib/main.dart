@@ -3,7 +3,7 @@ import 'package:bushidose/modules/dojo/cubit/dojo_cubit.dart';
 import 'package:bushidose/modules/haiku/cubit/haiku_cubit.dart';
 import 'package:bushidose/modules/journal/cubit/journal_cubit.dart';
 import 'package:bushidose/modules/main/cubit/main_cubit.dart';
-import 'package:bushidose/modules/main/pages/main_page.dart';
+import 'package:bushidose/modules/onboarding/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: 'Inter',
         ),
-        home: const MainPage(),
+        home: const SplashScreen(),
       ),
     );
   }
