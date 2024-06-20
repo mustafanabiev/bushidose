@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:bushidose/models/haiku_create_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,7 +12,7 @@ class HaikuCubit extends Cubit<HaikuState> {
     _loadHaikus();
   }
 
-  void saveImage(String image) {
+  void saveImage(Uint8List image) {
     emit(state.copyWith(image: image));
   }
 

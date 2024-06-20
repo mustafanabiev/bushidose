@@ -9,12 +9,12 @@ class HaikuState {
 
   final List<HaikuCreateModel> haikuCreateModel;
   final int? selectedImageIndex;
-  final String? image;
+  final Uint8List? image;
 
   HaikuState copyWith({
     List<HaikuCreateModel>? haikuCreateModel,
     int? selectedImageIndex,
-    String? image,
+    Uint8List? image,
   }) {
     return HaikuState(
       haikuCreateModel: haikuCreateModel ?? this.haikuCreateModel,

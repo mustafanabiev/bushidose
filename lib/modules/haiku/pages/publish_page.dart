@@ -25,7 +25,7 @@ class PublishPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/${newHaiku.image}.jpg'),
+            image: MemoryImage(newHaiku.image),
             fit: BoxFit.cover,
           ),
         ),

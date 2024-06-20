@@ -18,9 +18,7 @@ class HaikuCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         image: DecorationImage(
-          image: AssetImage(
-            'assets/images/${haikuCreate.image}.jpg',
-          ),
+          image: MemoryImage(haikuCreate.image),
           fit: BoxFit.cover,
         ),
       ),

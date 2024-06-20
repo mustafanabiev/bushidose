@@ -1,17 +1,20 @@
+import 'dart:convert';
+
 import 'package:bushidose/components/dropdown_btn.dart';
 import 'package:bushidose/components/text_field_widget.dart';
 import 'package:bushidose/components/text_widget.dart';
-import 'package:bushidose/constants/haiku_image.dart';
 import 'package:bushidose/constants/haiku_magic_list.dart';
 import 'package:bushidose/models/haiku_create_model.dart';
 import 'package:bushidose/modules/haiku/cubit/haiku_cubit.dart';
 import 'package:bushidose/modules/haiku/pages/publish_page.dart';
 import 'package:bushidose/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HaikuCreatePage extends StatefulWidget {
   const HaikuCreatePage({
@@ -39,6 +42,16 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
   String? lineValue2;
   String? lineValue3;
 
+  List<Uint8List> images = [];
+
+  final List<String> initialImages = [
+    'assets/images/bg1.jpg',
+    'assets/images/bg2.jpg',
+    'assets/images/bg3.jpg',
+    'assets/images/bg4.jpg',
+    'assets/images/bg5.jpg',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +66,41 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
     line1Ctl.addListener(_updateState);
     line2Ctl.addListener(_updateState);
     line3Ctl.addListener(_updateState);
+
+    _loadImages();
+  }
+
+  Future<void> _loadImages() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? cachedImageBase64List = prefs.getStringList('cached_images');
+
+    if (cachedImageBase64List != null) {
+      List<Uint8List> loadedImages = cachedImageBase64List
+          .map((base64String) => base64Decode(base64String))
+          .toList();
+
+      setState(() {
+        images.addAll(loadedImages);
+      });
+    } else {
+      List<Uint8List> loadedImages = await Future.wait(
+        initialImages.map((path) => loadAsset(path)),
+      );
+
+      List<String> imageBase64List =
+          loadedImages.map((image) => base64Encode(image)).toList();
+
+      await prefs.setStringList('cached_images', imageBase64List);
+
+      setState(() {
+        images.addAll(loadedImages);
+      });
+    }
+  }
+
+  Future<Uint8List> loadAsset(String path) async {
+    final ByteData data = await rootBundle.load(path);
+    return data.buffer.asUint8List();
   }
 
   @override
@@ -72,21 +120,20 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
     setState(() {});
   }
 
-  final List<String> images = [
-    'assets/images/bg1.jpg',
-    'assets/images/bg2.jpg',
-    'assets/images/bg3.jpg',
-    'assets/images/bg4.jpg',
-    'assets/images/bg5.jpg',
-  ];
-
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      Uint8List imageData = await pickedFile.readAsBytes();
       setState(() {
-        images.add(image.path);
+        images.add(imageData);
       });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> imageBase64List =
+          images.map((image) => base64Encode(image)).toList();
+
+      await prefs.setStringList('cached_images', imageBase64List);
     }
   }
 
@@ -255,7 +302,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                                 margin: const EdgeInsets.only(right: 8),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: Image.asset(
+                                  child: Image.memory(
                                     images[index],
                                     fit: BoxFit.fill,
                                   ),
