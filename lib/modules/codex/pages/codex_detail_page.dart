@@ -14,49 +14,51 @@ class CodexDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.bg,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox.square(),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: SvgPicture.asset('assets/icons/close.svg'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 54),
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '${codexModel.text2} ${codexModel.text3}'.toUpperCase(),
-                      style: AppTextStyles.styleF14W700,
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      codexModel.description,
-                      style: const TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 14,
-                        color: Color(0xff000000),
-                        fontWeight: FontWeight.w400,
-                        height: 16 / 14,
-                        textBaseline: TextBaseline.alphabetic,
-                      ),
+                    const SizedBox.square(),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: SvgPicture.asset('assets/icons/close.svg'),
                     ),
                   ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 54),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${codexModel.text2} ${codexModel.text3}'.toUpperCase(),
+                        style: AppTextStyles.styleF14W700,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        codexModel.description,
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14,
+                          color: Color(0xff000000),
+                          fontWeight: FontWeight.w400,
+                          height: 16 / 14,
+                          textBaseline: TextBaseline.alphabetic,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
