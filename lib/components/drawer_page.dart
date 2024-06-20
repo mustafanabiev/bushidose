@@ -28,10 +28,10 @@ class DrawerPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.2,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 160),
+                      padding: const EdgeInsets.only(bottom: 20),
                       child: Image.asset('assets/images/Ellipse 11.png'),
                     ),
                   ),
@@ -66,7 +66,8 @@ class DrawerPage extends StatelessWidget {
                                     Navigator.pop(context);
                                   },
                                   icon: SvgPicture.asset(
-                                      'assets/icons/close.svg'),
+                                    'assets/icons/close.svg',
+                                  ),
                                 ),
                               ],
                             ),
@@ -146,10 +147,10 @@ class DrawerPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.2,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 160),
+                      padding: const EdgeInsets.only(bottom: 20),
                       child: Image.asset('assets/images/Ellipse 11.png'),
                     ),
                   ),
@@ -200,13 +201,39 @@ class DrawerPage extends StatelessWidget {
                               textAlign: TextAlign.left,
                             ),
                             const SizedBox(height: 14),
-                            const PremiumTextWidget(text: 'Ad-free app'),
-                            const SizedBox(height: 10),
-                            const PremiumTextWidget(
-                              text: 'Access to Haiku',
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/CheckCircle.svg',
+                                ),
+                                const SizedBox(width: 3),
+                                const PremiumTextWidget(text: 'Ad-free app'),
+                              ],
                             ),
                             const SizedBox(height: 10),
-                            const PremiumTextWidget(text: 'One-time payment'),
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/CheckCircle.svg',
+                                ),
+                                const SizedBox(width: 3),
+                                const PremiumTextWidget(
+                                  text: 'Access to Haiku',
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/CheckCircle.svg',
+                                ),
+                                const SizedBox(width: 3),
+                                const PremiumTextWidget(
+                                  text: 'One-time payment',
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 10),
                             SizedBox(
                               width: double.infinity,
@@ -251,7 +278,7 @@ class DrawerPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              'restore'.toUpperCase(),
+                              'Support'.toUpperCase(),
                               style: const TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 20,

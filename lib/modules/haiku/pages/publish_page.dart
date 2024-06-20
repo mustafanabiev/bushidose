@@ -25,7 +25,7 @@ class PublishPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/${newHaiku.image}.jpg'),
+            image: MemoryImage(newHaiku.image),
             fit: BoxFit.cover,
           ),
         ),
@@ -47,7 +47,7 @@ class PublishPage extends StatelessWidget {
               ),
               const SizedBox(height: 68),
               Text(
-                'autumn rain'.toUpperCase(),
+                newHaiku.title.toUpperCase(),
                 style: const TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
@@ -59,9 +59,9 @@ class PublishPage extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               const SizedBox(height: 60),
-              const Text(
-                'Blossoms dance in spring breeze',
-                style: TextStyle(
+              Text(
+                newHaiku.line1,
+                style: const TextStyle(
                   fontFamily: 'Papyrus',
                   fontSize: 16,
                   color: Color(0XFF070417),
@@ -72,9 +72,9 @@ class PublishPage extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               const SizedBox(height: 18),
-              const Text(
-                'Cherry petals drift away',
-                style: TextStyle(
+              Text(
+                newHaiku.line2,
+                style: const TextStyle(
                   fontFamily: 'Papyrus',
                   fontSize: 16,
                   color: Color(0XFF070417),
@@ -85,9 +85,9 @@ class PublishPage extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               const SizedBox(height: 18),
-              const Text(
-                'New buds break winter’s silence',
-                style: TextStyle(
+              Text(
+                newHaiku.line3,
+                style: const TextStyle(
                   fontFamily: 'Papyrus',
                   fontSize: 16,
                   color: Color(0XFF070417),

@@ -17,7 +17,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  // String? _selectedText = 'Dojo';
 
   @override
   Widget build(BuildContext context) {

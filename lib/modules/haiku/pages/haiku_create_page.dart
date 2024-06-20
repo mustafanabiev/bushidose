@@ -1,13 +1,22 @@
+import 'dart:convert';
+
+import 'package:bushidose/components/dropdown_btn.dart';
 import 'package:bushidose/components/text_field_widget.dart';
 import 'package:bushidose/components/text_widget.dart';
+import 'package:bushidose/constants/haiku_magic_list.dart';
 import 'package:bushidose/models/haiku_create_model.dart';
 import 'package:bushidose/modules/haiku/cubit/haiku_cubit.dart';
 import 'package:bushidose/modules/haiku/pages/publish_page.dart';
 import 'package:bushidose/theme/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HaikuCreatePage extends StatefulWidget {
   const HaikuCreatePage({
@@ -28,12 +37,21 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
   final line1Ctl = TextEditingController();
   final line2Ctl = TextEditingController();
   final line3Ctl = TextEditingController();
-  final List<String> images = [
-    'bg1',
-    'bg2',
-    'bg3',
-    'bg4',
-    'bg5',
+
+  bool isTryMagic = false;
+
+  String? lineValue1;
+  String? lineValue2;
+  String? lineValue3;
+
+  List<Uint8List> images = [];
+
+  final List<String> initialImages = [
+    'assets/images/bg1.jpg',
+    'assets/images/bg2.jpg',
+    'assets/images/bg3.jpg',
+    'assets/images/bg4.jpg',
+    'assets/images/bg5.jpg',
   ];
 
   @override
@@ -50,6 +68,41 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
     line1Ctl.addListener(_updateState);
     line2Ctl.addListener(_updateState);
     line3Ctl.addListener(_updateState);
+
+    _loadImages();
+  }
+
+  Future<void> _loadImages() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? cachedImageBase64List = prefs.getStringList('cached_images');
+
+    if (cachedImageBase64List != null) {
+      List<Uint8List> loadedImages = cachedImageBase64List
+          .map((base64String) => base64Decode(base64String))
+          .toList();
+
+      setState(() {
+        images.addAll(loadedImages);
+      });
+    } else {
+      List<Uint8List> loadedImages = await Future.wait(
+        initialImages.map((path) => loadAsset(path)),
+      );
+
+      List<String> imageBase64List =
+          loadedImages.map((image) => base64Encode(image)).toList();
+
+      await prefs.setStringList('cached_images', imageBase64List);
+
+      setState(() {
+        images.addAll(loadedImages);
+      });
+    }
+  }
+
+  Future<Uint8List> loadAsset(String path) async {
+    final ByteData data = await rootBundle.load(path);
+    return data.buffer.asUint8List();
   }
 
   @override
@@ -69,6 +122,55 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
     setState(() {});
   }
 
+  Future<void> _pickImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedFile =
+          await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        Uint8List imageData = await pickedFile.readAsBytes();
+        setState(() {
+          images.add(imageData);
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        List<String> imageBase64List =
+            images.map((image) => base64Encode(image)).toList();
+
+        await prefs.setStringList('cached_images', imageBase64List);
+      }
+    } catch (e) {
+      var status = await Permission.photos.status;
+      if (status.isDenied) {
+        // ignore: use_build_context_synchronously
+        showAlertDialog(context);
+      } else {
+        return;
+      }
+    }
+  }
+
+  void showAlertDialog(BuildContext context) => showCupertinoDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: const Text('Permission Denied'),
+            content: const Text('Allow access to gallery and photos'),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                onPressed: () => openAppSettings(),
+                child: const Text('Settings'),
+              ),
+            ],
+          );
+        },
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +178,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 15, 15, 15),
+            padding: const EdgeInsets.fromLTRB(0, 15, 15, 40),
             child: Column(
               children: [
                 Row(
@@ -85,16 +187,23 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                     IconButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        context.read<HaikuCubit>().clear();
                       },
                       icon: SvgPicture.asset('assets/icons/close.svg'),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          isTryMagic = !isTryMagic;
+                        });
+                      },
                       child: Row(
                         children: [
-                          const Text(
-                            'Try magic write',
-                            style: TextStyle(
+                          Text(
+                            !isTryMagic
+                                ? 'Try magic write'
+                                : 'Quit magic write',
+                            style: const TextStyle(
                               fontFamily: 'Inter',
                               color: Color(0xffB9B9B9),
                               fontSize: 12,
@@ -105,7 +214,9 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                             textAlign: TextAlign.left,
                           ),
                           const SizedBox(width: 8),
-                          SvgPicture.asset('assets/icons/star.svg'),
+                          !isTryMagic
+                              ? SvgPicture.asset('assets/icons/star.svg')
+                              : SvgPicture.asset('assets/icons/star_2.svg'),
                         ],
                       ),
                     ),
@@ -121,20 +232,44 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                         controller: titleCtl,
                       ),
                       const SizedBox(height: 32),
-                      TextFieldWidget(
-                        text: 'Line 1:',
-                        controller: line1Ctl,
-                      ),
+                      isTryMagic
+                          ? DropdownBtnWidget(
+                              text: 'line 1:',
+                              onSaved: (value) {
+                                lineValue1 = value.toString();
+                              },
+                              list: data,
+                            )
+                          : TextFieldWidget(
+                              text: 'Line 1:',
+                              controller: line1Ctl,
+                            ),
                       const SizedBox(height: 32),
-                      TextFieldWidget(
-                        text: 'Line 2:',
-                        controller: line2Ctl,
-                      ),
+                      isTryMagic
+                          ? DropdownBtnWidget(
+                              text: 'line 2:',
+                              onSaved: (value) {
+                                lineValue2 = value.toString();
+                              },
+                              list: data,
+                            )
+                          : TextFieldWidget(
+                              text: 'Line 2:',
+                              controller: line2Ctl,
+                            ),
                       const SizedBox(height: 32),
-                      TextFieldWidget(
-                        text: 'Line 3:',
-                        controller: line3Ctl,
-                      ),
+                      isTryMagic
+                          ? DropdownBtnWidget(
+                              text: 'line 3:',
+                              onSaved: (value) {
+                                lineValue3 = value.toString();
+                              },
+                              list: data,
+                            )
+                          : TextFieldWidget(
+                              text: 'Line 3:',
+                              controller: line3Ctl,
+                            ),
                       const SizedBox(height: 32),
                       const TextWidget(
                         text: 'background:',
@@ -157,7 +292,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                           itemBuilder: (context, index) {
                             if (index == images.length) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: _pickImage,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
@@ -193,27 +328,20 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(
                                     width: 1.5,
-                                    color:
-                                        // widget.isChange?
-                                        // ? widget.haikuCreateModel!.countImage ==
-                                        //         index
-                                        //     ? Colors.black
-                                        //     : Colors.transparent
-                                        // :
-                                        context
-                                                    .watch<HaikuCubit>()
-                                                    .state
-                                                    .selectedImageIndex ==
-                                                index
-                                            ? Colors.black
-                                            : Colors.transparent,
+                                    color: context
+                                                .watch<HaikuCubit>()
+                                                .state
+                                                .selectedImageIndex ==
+                                            index
+                                        ? Colors.black
+                                        : Colors.transparent,
                                   ),
                                 ),
                                 margin: const EdgeInsets.only(right: 8),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: Image.asset(
-                                    'assets/images/${images[index]}.jpg',
+                                  child: Image.memory(
+                                    images[index],
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -269,33 +397,64 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                               builder: (context, state) {
                                 return GestureDetector(
                                   onTap: () {
-                                    if (titleCtl.text.isNotEmpty &&
-                                        line1Ctl.text.isNotEmpty &&
-                                        line2Ctl.text.isNotEmpty &&
-                                        line3Ctl.text.isNotEmpty &&
-                                        state.image != null) {
-                                      final newHaiku = HaikuCreateModel(
-                                        title: titleCtl.text,
-                                        line1: line1Ctl.text,
-                                        line2: line2Ctl.text,
-                                        line3: line3Ctl.text,
-                                        image: state.image!,
-                                        date: DateFormat('dd MMMM, yyyy')
-                                            .format(DateTime.now()),
-                                        image2: null,
-                                        countImage:
-                                            state.selectedImageIndex ?? 0,
-                                      );
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PublishPage(
-                                            oldHaiku: widget.haikuCreateModel,
-                                            newHaiku: newHaiku,
-                                            isChange: widget.isChange,
+                                    if (isTryMagic) {
+                                      if (titleCtl.text.isNotEmpty &&
+                                          lineValue1 != null &&
+                                          lineValue2 != null &&
+                                          lineValue3 != null &&
+                                          state.image != null) {
+                                        final newHaiku = HaikuCreateModel(
+                                          title: titleCtl.text,
+                                          line1: lineValue1 ?? '',
+                                          line2: lineValue2 ?? '',
+                                          line3: lineValue3 ?? '',
+                                          image: state.image!,
+                                          date: DateFormat('dd MMMM, yyyy')
+                                              .format(DateTime.now()),
+                                          image2: null,
+                                          countImage:
+                                              state.selectedImageIndex ?? 0,
+                                        );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => PublishPage(
+                                              oldHaiku: widget.haikuCreateModel,
+                                              newHaiku: newHaiku,
+                                              isChange: widget.isChange,
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      }
+                                    } else {
+                                      if (titleCtl.text.isNotEmpty &&
+                                          line1Ctl.text.isNotEmpty &&
+                                          line2Ctl.text.isNotEmpty &&
+                                          line3Ctl.text.isNotEmpty &&
+                                          state.image != null) {
+                                        final newHaiku = HaikuCreateModel(
+                                          title: titleCtl.text,
+                                          line1: line1Ctl.text,
+                                          line2: line2Ctl.text,
+                                          line3: line3Ctl.text,
+                                          image: state.image!,
+                                          date: DateFormat('dd MMMM, yyyy')
+                                              .format(DateTime.now()),
+                                          image2: null,
+                                          countImage:
+                                              state.selectedImageIndex ?? 0,
+                                        );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => PublishPage(
+                                              oldHaiku: widget.haikuCreateModel,
+                                              newHaiku: newHaiku,
+                                              isChange: widget.isChange,
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     }
                                   },
                                   child: Container(
