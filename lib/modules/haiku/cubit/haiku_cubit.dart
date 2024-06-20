@@ -21,14 +21,14 @@ class HaikuCubit extends Cubit<HaikuState> {
   void createNew(HaikuCreateModel haikuCreateModel) {
     final stateHaikus = List<HaikuCreateModel>.from(state.haikuCreateModel)
       ..add(haikuCreateModel);
-    emit(state.copyWith(haikuCreateModel: stateHaikus));
+    saveList(stateHaikus);
     _saveHaikus(stateHaikus);
   }
 
   void deleteHaiku(HaikuCreateModel haikuCreateModel) {
     final stateHaikus = List<HaikuCreateModel>.from(state.haikuCreateModel)
       ..remove(haikuCreateModel);
-    emit(state.copyWith(haikuCreateModel: stateHaikus));
+    saveList(stateHaikus);
     _saveHaikus(stateHaikus);
   }
 
@@ -37,7 +37,7 @@ class HaikuCubit extends Cubit<HaikuState> {
     final index = stateHaikus.indexOf(oldHaiku);
     if (index != -1) {
       stateHaikus[index] = newHaiku;
-      emit(state.copyWith(haikuCreateModel: stateHaikus));
+      saveList(stateHaikus);
       _saveHaikus(stateHaikus);
     }
   }
@@ -58,5 +58,21 @@ class HaikuCubit extends Cubit<HaikuState> {
           jsonList.map((json) => HaikuCreateModel.fromMap(json)).toList();
       emit(state.copyWith(haikuCreateModel: haikus));
     }
+  }
+
+  void saveList(List<HaikuCreateModel> list) {
+    emit(HaikuState(
+      haikuCreateModel: list,
+      image: null,
+      selectedImageIndex: null,
+    ));
+  }
+
+  void clear() {
+    emit(HaikuState(
+      haikuCreateModel: List<HaikuCreateModel>.from(state.haikuCreateModel),
+      image: null,
+      selectedImageIndex: null,
+    ));
   }
 }

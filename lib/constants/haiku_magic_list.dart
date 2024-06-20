@@ -1,0 +1,98 @@
+final Map<String, List<String>> data = {
+  'Spring (春, Haru)': [
+    'Blossoms dance in spring breeze',
+    'Cherry petals drift away',
+    'New buds break winter’s silence',
+    'Frogs sing in blooming fields',
+    'A robin’s song welcomes dawn',
+    'Fresh rain kisses green shoots',
+    'Tulips open to the sun',
+    'Butterflies in tender bloom',
+    'Morning dew on cherry blooms',
+    'Willow branches sway gently'
+  ],
+  'Summer (夏, Natsu)': [
+    'Cicadas sing in hot sun',
+    'Waves crash on sandy shore',
+    'Fireflies light the twilight',
+    'Sunflowers reach for the sky',
+    'Warm nights with cricket songs',
+    'Thunder rumbles in the heat',
+    'Blue sky stretches endlessly',
+    'Ice cream melts in warm hands',
+    'Dragonflies hover over ponds',
+    'Cool breezes on summer nights'
+  ],
+  'Autumn (秋, Aki)': [
+    'Leaves whisper in autumn wind',
+    'Golden fields under harvest moon',
+    'Maple leaves turn fiery red',
+    'Crisp air and the smell of wood',
+    'Migrating birds cross the sky',
+    'Moonlit night on quiet fields',
+    'Pumpkins ripe for the picking',
+    'Mist rolls in with the dusk',
+    'Autumn twilight, shadows fall',
+    'Acorns drop on silent ground'
+  ],
+  'Winter (冬, Fuyu)': [
+    'Snowflakes dance in winter wind',
+    'Frost etches patterns on glass',
+    'Bare branches touch grey sky',
+    'Ice crystals on the windowsill',
+    'Warm hearth against cold night',
+    'Frozen lakes, silent beneath',
+    'Pine trees heavy with snow',
+    'Footprints in fresh snow vanish',
+    'Stars glitter in icy air',
+    'Winter moon lights the frosty path'
+  ],
+  'Time and Transience': [
+    'Blossoms fall, time passes on',
+    'Echoes fade as moments drift',
+    'Footprints washed away by tide',
+    'Sunset whispers of change',
+    'Leaves fall, the world moves on',
+    'Shadows lengthen, day slips by',
+    'Fleeting clouds cross the sky',
+    'Dewdrops vanish with dawn',
+    'Moon wanes, night passes quietly',
+    'Stars fall in the endless night'
+  ],
+  'Human Experience and Emotions': [
+    'Tears fall in the silent night',
+    'Heartbeats echo in the dark',
+    'Joy blooms like spring flowers',
+    'Love whispers in the breeze',
+    'Loneliness in the falling leaves',
+    'Laughter echoes in warm sun',
+    'Grief like shadows on the wall',
+    'Hope shines in dawn’s first light',
+    'Fear fades in the morning sun',
+    'Happiness in simple moments'
+  ],
+  'Observation and Reflection': [
+    'Moon reflects on quiet pond',
+    'Clouds drift, thoughts wander far',
+    'Shadows play on forest floor',
+    'Raindrops patter, thoughts arise',
+    'Silence holds a hidden truth',
+    'Ripples spread, thoughts extend',
+    'Stars whisper ancient secrets',
+    'Wind speaks in the tall grass',
+    'Leaves flutter, mind at peace',
+    'Stillness reveals inner calm'
+  ],
+  'Spiritual and Philosophical': [
+    'Zen garden, peace in stillness',
+    'The moon shines on all paths',
+    'Mountains echo ancient chants',
+    'Breeze carries whispers of peace',
+    'Stars remind of eternity',
+    'Bamboo bends with quiet strength',
+    'Silence holds the universe',
+    'Moonlight guides the soul’s journey',
+    'River flows, wisdom deepens',
+    'Wind reveals the unseen truth'
+  ],
+};

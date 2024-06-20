@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:bushidose/modules/dojo/pages/mission_complated_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 import 'package:bushidose/models/dojo_select_model.dart';
+import 'package:bushidose/main.dart';
 
 part 'dojo_state.dart';
 
@@ -59,24 +62,6 @@ class DojoCubit extends Cubit<DojoState> {
     _saveToPrefs();
   }
 
-  // void toggleSelect(int index) {
-  //   String selectedDate = state.selectedDate;
-  //   List<DojoSelectModel> updatedList =
-  //       List.from(state.dojoSelectMap[selectedDate]!);
-  //   DojoSelectModel currentItem = updatedList[index];
-  //   DojoSelectModel updatedItem = DojoSelectModel(
-  //     icon: currentItem.icon,
-  //     name: currentItem.name,
-  //     select: !currentItem.select,
-  //   );
-  //   updatedList[index] = updatedItem;
-  //   state.dojoSelectMap[selectedDate] = updatedList;
-  //   emit(DojoState(
-  //     dojoSelectMap: Map.from(state.dojoSelectMap),
-  //     selectedDate: selectedDate,
-  //   ));
-  //   _saveToPrefs();
-  // }
   void toggleSelect(DateTime date, int index) {
     String dateString = date.toString().split(' ')[0];
     List<DojoSelectModel> updatedList =
@@ -94,6 +79,23 @@ class DojoCubit extends Cubit<DojoState> {
       selectedDate: dateString,
     ));
     _saveToPrefs();
+
+    if (_allItemsSelected(updatedList)) {
+      _navigateToMissionCompletedPage();
+    }
+  }
+
+  bool _allItemsSelected(List<DojoSelectModel> list) {
+    return list.every((item) => item.select);
+  }
+
+  void _navigateToMissionCompletedPage() {
+    final context = navigatorKey.currentContext;
+    if (context != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const MissionComplatedPage()),
+      );
+    }
   }
 }
 

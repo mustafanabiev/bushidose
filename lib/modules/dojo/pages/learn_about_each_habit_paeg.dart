@@ -1,4 +1,3 @@
-import 'package:bushidose/modules/dojo/pages/mission_complated_page.dart';
 import 'package:bushidose/theme/app_colors.dart';
 import 'package:bushidose/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -40,28 +39,18 @@ class LearnAboutEachHabitPage extends StatelessWidget {
                       style: AppTextStyles.styleF14W700,
                     ),
                     const SizedBox(height: 36),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MissionComplatedPage(),
-                          ),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          Text(
-                            'Haiku'.toUpperCase(),
-                            style: AppTextStyles.styleF14W700,
-                          ),
-                          const SizedBox(width: 4),
-                          SvgPicture.asset(
-                            'assets/icons/paper.svg',
-                            color: AppColors.textRed,
-                          ),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          'Haiku'.toUpperCase(),
+                          style: AppTextStyles.styleF14W700,
+                        ),
+                        const SizedBox(width: 4),
+                        SvgPicture.asset(
+                          'assets/icons/paper.svg',
+                          color: AppColors.textRed,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 4),
                     const Text(
