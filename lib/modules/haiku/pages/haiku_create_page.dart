@@ -415,15 +415,63 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                                           countImage:
                                               state.selectedImageIndex ?? 0,
                                         );
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => PublishPage(
-                                              oldHaiku: widget.haikuCreateModel,
-                                              newHaiku: newHaiku,
-                                              isChange: widget.isChange,
+                                        if (widget.isChange) {
+                                          if (widget.haikuCreateModel != null) {
+                                            context
+                                                .read<HaikuCubit>()
+                                                .updateHaiku(
+                                                  widget.haikuCreateModel!,
+                                                  newHaiku,
+                                                );
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PublishPage(
+                                                  newHaiku: newHaiku,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          context
+                                              .read<HaikuCubit>()
+                                              .createNew(newHaiku);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => PublishPage(
+                                                newHaiku: newHaiku,
+                                              ),
                                             ),
-                                          ),
+                                          );
+                                        }
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            Future.delayed(
+                                                const Duration(seconds: 1), () {
+                                              // ignore: use_build_context_synchronously
+                                              Navigator.pop(context);
+                                            });
+                                            return const AlertDialog(
+                                              title: SizedBox(
+                                                height: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    'Choose lines',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         );
                                       }
                                     } else {
@@ -444,15 +492,63 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                                           countImage:
                                               state.selectedImageIndex ?? 0,
                                         );
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => PublishPage(
-                                              oldHaiku: widget.haikuCreateModel,
-                                              newHaiku: newHaiku,
-                                              isChange: widget.isChange,
+                                        if (widget.isChange) {
+                                          if (widget.haikuCreateModel != null) {
+                                            context
+                                                .read<HaikuCubit>()
+                                                .updateHaiku(
+                                                  widget.haikuCreateModel!,
+                                                  newHaiku,
+                                                );
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PublishPage(
+                                                  newHaiku: newHaiku,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          context
+                                              .read<HaikuCubit>()
+                                              .createNew(newHaiku);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => PublishPage(
+                                                newHaiku: newHaiku,
+                                              ),
                                             ),
-                                          ),
+                                          );
+                                        }
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            Future.delayed(
+                                                const Duration(seconds: 1), () {
+                                              // ignore: use_build_context_synchronously
+                                              Navigator.pop(context);
+                                            });
+                                            return const AlertDialog(
+                                              title: SizedBox(
+                                                height: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    'Fill in all the fields',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         );
                                       }
                                     }

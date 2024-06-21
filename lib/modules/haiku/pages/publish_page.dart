@@ -1,23 +1,21 @@
 import 'package:bushidose/models/haiku_create_model.dart';
-import 'package:bushidose/modules/haiku/cubit/haiku_cubit.dart';
 import 'package:bushidose/modules/main/cubit/main_cubit.dart';
 import 'package:bushidose/modules/main/pages/main_page.dart';
 import 'package:bushidose/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PublishPage extends StatelessWidget {
   const PublishPage({
     super.key,
-    this.oldHaiku,
     required this.newHaiku,
-    required this.isChange,
+    this.isHome = false,
   });
 
-  final HaikuCreateModel? oldHaiku;
   final HaikuCreateModel newHaiku;
-  final bool isChange;
+  final bool isHome;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,18 @@ class PublishPage extends StatelessWidget {
                   const SizedBox.square(),
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      if (isHome) {
+                        Navigator.pop(context);
+                      } else {
+                        context.read<MainCubit>().change('Haiku');
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainPage(),
+                          ),
+                          (route) => false,
+                        );
+                      }
                     },
                     icon: SvgPicture.asset('assets/icons/close.svg'),
                   ),
@@ -100,32 +109,7 @@ class PublishPage extends StatelessWidget {
               const SizedBox(height: 47),
               IconButton(
                 onPressed: () {
-                  if (isChange) {
-                    if (oldHaiku != null) {
-                      context.read<HaikuCubit>().updateHaiku(
-                            oldHaiku!,
-                            newHaiku,
-                          );
-                      context.read<MainCubit>().change('Haiku');
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainPage(),
-                        ),
-                        (route) => false,
-                      );
-                    }
-                  } else {
-                    context.read<HaikuCubit>().createNew(newHaiku);
-                    context.read<MainCubit>().change('Haiku');
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MainPage(),
-                      ),
-                      (route) => false,
-                    );
-                  }
+                  Share.share(newHaiku.title);
                 },
                 icon: SvgPicture.asset('assets/icons/share.svg'),
               ),

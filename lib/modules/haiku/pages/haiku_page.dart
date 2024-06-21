@@ -1,6 +1,7 @@
 import 'package:bushidose/components/haiku_card_widget.dart';
 import 'package:bushidose/modules/haiku/cubit/haiku_cubit.dart';
 import 'package:bushidose/modules/haiku/pages/haiku_create_page.dart';
+import 'package:bushidose/modules/haiku/pages/publish_page.dart';
 import 'package:bushidose/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,14 +75,25 @@ class HaikuPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HaikuCreatePage(
-                              haikuCreateModel: state.haikuCreateModel[index],
-                              isChange: true,
+                            builder: (context) => PublishPage(
+                              newHaiku: state.haikuCreateModel[index],
+                              isHome: true,
                             ),
                           ),
                         );
                       },
                       child: HaikuCardWidget(
+                        onTapEdit: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HaikuCreatePage(
+                                haikuCreateModel: state.haikuCreateModel[index],
+                                isChange: true,
+                              ),
+                            ),
+                          );
+                        },
                         haikuCreate: state.haikuCreateModel[index],
                       ),
                     );

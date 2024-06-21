@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HaikuCardWidget extends StatelessWidget {
-  const HaikuCardWidget({super.key, required this.haikuCreate});
+  const HaikuCardWidget({
+    super.key,
+    required this.haikuCreate,
+    this.onTapEdit,
+  });
 
   final HaikuCreateModel haikuCreate;
+  final void Function()? onTapEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,10 @@ class HaikuCardWidget extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.topRight,
-            child: SvgPicture.asset('assets/icons/edit.svg'),
+            child: GestureDetector(
+              onTap: onTapEdit,
+              child: SvgPicture.asset('assets/icons/edit.svg'),
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
