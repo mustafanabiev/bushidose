@@ -349,4 +349,102 @@ And, perhaps the most important lesson I've taken away from them, as Miyamoto Mu
 Here's to the soul of the samurai.
         ''',
   ),
+  const CodexModel(
+    text: '弓道',
+    text2: 'Japanese Calligraphy:',
+    text3: 'The Art of Shodo.',
+    description: '''
+Japanese calligraphy is one of the most celebrated and revered forms of artistic expression within Japanese culture. Also known as Shodo, which translates to “the way of writing,” the tradition of calligraphy was first brought to Japan by China in the 6th century A.D. Since, a style and technique unique to Japan formed, and it has been practiced by samurai, nobility, and ordinary people since.
+
+Truly notable calligraphic writing takes decades to master and can be valued as much as paintings and other forms of Japanese art. The practice is more than art; it’s a harmonious and philosophical process that is expressed through a careful configuration of brush strokes. Japanese calligraphy fuses poetry, literature, and painting by possessing rhythm, emotion, aesthetic, and spirituality in one unique art form. It’s such an important aspect of the Japanese culture and ideals that it’s even introduced to Japanese children as early as elementary school.
+
+A Brief History of Japanese Calligraphy
+
+“Seven-character Buddhist maxim” by Kogetsu Sogan. Sold for \$10,158 via Christie’s (March 2004).
+
+The foundations of Japanese calligraphy originated in China during the Han dynasty, with all basic forms developed by 220 A.D. It was introduced in Japan in the 6th century A.D. as a means to stay in contact between countries. Though ideographic elements have been found in writing systems since roughly 2500 B.C., the Japanese calligraphic manuscript became so sophisticated that it is admired by cultures all over the world today.
+
+Who Created Japanese Calligraphy?
+
+Calligraphy was created by Li Si, the prime minister of China during the Qin dynasty in 208 A.D. Initially, pictographs had been inscribed on bone for religious purposes, but soon there was a need for a uniform script for administrative purposes. Li Si is credited with standardizing this script during his reign. He decided all the horizontal strokes should be written first, and characters would be drawn from bottom to top, left to right. Around 300 A.D., the ink-wet brush was invented and characters could be created in a smoother fashion. The earliest existing calligraphic text in Japan is the inscription on the halo of the Medicine Buddha statue in the Horyuji Temple.
+
+Ono no Michikaze, a prominent government official, poet, and calligrapher, is considered the founder of Japanese calligraphy. He created the style of wayo, which was practiced as an art form until the mid-19th century.
+
+Since making its way to Japan, Chinese calligraphy characteristics have been modified to fit their already spoken language and became known as Kanji. Kanji are non-phonetic symbols adopted from Chinese characters that were used alongside Japanese syllabic scripts hiragana and katakana. Until the advent of these unique Japanese alphabets, Chinese calligrapher Wang Xizhi was widely considered the most esteemed calligrapher in Japan in the 4th century. Today, shodo is a popular class among art school students is and widely practiced as a respected medium within the Japanese culture.
+
+What is Japanese Calligraphy used for?
+
+Japanese calligraphy has many purposes. It is an art form, a means of communication, but also a Zen practice that evokes harmony and wisdom. This important skill is passed down from generations, emphasizing a beauty and balance in writing. Using a bamboo brush and sumi ink, which is ink made from pine tree soot, calligraphers create a sweeping, flowing brushstroke, similar to that of painting. It’s a fluid, spontaneous motion that is intended to hold sacred value in each line. Much like Japanese tea ceremonies, ikebana, the Japanese art of flower arrangement, and other artistic forms of expression, calligraphy acts as a meditative, spiritual offering.
+
+Shodo Writing Styles
+
+Since its inception, various styles of Shodo have formed, many of which were reflective of the trends or residing ruler during a specific time period. Even if particular works of art are considered the same writing style, each and every skilled calligrapher has their own unique expression and way of executing that particular style. The three main types of Shodo styles widely practiced today are outlined below.
+
+Kaisho
+
+Typically, students of Shodo start by learning Kaisho. This block style of writing is considered the foundation of other less formal styles, and as such, it is required to get a proper feel for the craft. The character kai (in Kaisho) translates to “correctness,” and is what the style is based upon. Each stroke follows a rigid order, and the composition and proportions are carefully executed. Once Kaisho is understood, artists can move on to less formalized, more artistic styles.
+
+Gyosho
+
+Gyosho literally translates to “moving style,” which accurately describes the technique used within this style of calligraphy. Less formal and rigid than Kaisho, Gyosho is a semi-cursive script that focuses on motion and fluidity with less angular characters. The calligrapher’s brush does not leave the paper, and each stroke is intended to continue on to the next. Thus, it offers a more creative outlet for artists and is widely used as the everyday handwriting style amongst writers.
+
+Sosho
+
+Two of the 26 poets Sanjuro Kasen. Sold for €250 via Galerie Zacke Vienna (November 2015).
+
+Sosho is the most difficult type of calligraphy to master and comprehend. This cursive style is thought to emulate the effect of the wind blowing grass, where characters flow into one another. Strokes are greatly modified, and sometimes even eliminated, to create a smooth sensation of writing. Shosho is used mostly in abstract works of art, especially Zen art, where it’s important to transmit energy throughout your work.
+
+Older Notable Writing Styles
+
+Tensho
+
+ Perhaps the oldest style of writing, Tensho was developed before paper and ink existed. It is referred to as “seal script” because it was used to make seals for stamping impressions onto other materials. It is still used on seals in Japan today.
+Reisho
+ Reisho formed as a more practical and efficient writing style compared to Tensho. Known as “the scribe’s script,” this style of writing was achieved with ink on wood or bamboo stripes. It’s still used on banknotes in Japan today.
+
+Japanese Calligraphy Tools, Techniques, and 
+Characteristics
+
+Tools
+
+The tools used in Japanese calligraphy and other Asian traditions are some of the most important developments of the craft, and even referred to as the “Four Treasures of the Study.” These four treasures, or “jewels,” are: the brush, ink, paper, and inkstone.
+
+  Brush (Fude): The brush is arguably the most important tool to best implement the craft. There are two types used, the hosofude, which is a slender brush, and the futofude, which is a thicker brush. They’re usually made of bamboo with the bristles taken from animals such as the wolf, badger, horse, or squirrel.
+
+  Ink (Sumi): While the earliest writing inks were made from naturally occuring minerals like graphite, today they’re made from the soot of pine branches. The mountainsides close to Nara and Suzuka in Japan are prized for having the highest quality ink.
+  
+  Mulberry Paper (Washi): This traditional Japanese paper is typically tougher than ordinary paper and absorbs ink better.
+
+  Inkstone (Suzuri): Artists use an inkstone to rub the sumi ink black to create ink.
+
+Japanese calligraphy tools come in a variety of prices and styles today, so it’s best to consult an expert if you are just starting out. Other important tools used to master the craft include:
+
+  Bunchin paperweight: This is used to hold your paper stable while writing.
+
+  Shitajiki felt pad: Shitajiki translates to “under sheet” and is the mat placed under the paperweight. It prevents markings on the sheets below and provides a better surface for writing.
+
+Techniques and Characteristics
+
+Shodo is first and foremost an art form, so characteristics and techniques are mere starting points before the artist puts his or her unique spin each piece. Below are basic techniques and best practices for creating a valued, Japanese calligraphic piece of art.
+
+Ways to Hold a Brush
+
+ There are a couple ways in which calligraphers hold their brush. In the Tankoho method, the brush is held like a pencil, using the thumb, index finger, and middle finger. In the Sokoho method, the artists adds their ring finger.
+
+Choice of Paper
+ There is a variety of different paper choices, especially since the practice has become more modernized. Typically, white paper is used for Kanji, and letter paper for brush writing or sending personalized letters. Calligraphers can choose from a variety of patterns, colors, and thicknesses as well.
+
+Basic Brush Strokes
+ These essential, eight brush strokes in Kanji are referred to as eijihappo. Each stroke is practiced and mastered before being put to use.
+ 
+Other Characteristics:
+
+  Horizontal strokes are written first.
+  Script is mainly written from left to right, top to bottom.
+  Variegation is one of the most prized aspects of the craft. A single work typically displays a mixture of different styles and strokes.
+
+Like other Japanese arts and antiques, calligraphy was introduced to Japan from another culture. As the Japanese adopted the practice, they quickly made it their own, creating new styles and techniques unique to them. Today, it is considered one of the most beautifully articulated artforms within the Japanese culture, and valued much like that of highly esteemed paintings. Collectors of Japanese art can appreciate the intricacies of each brush stroke as well as the spiritual, meaningful nature of each piece of work.
+
+''',
+  ),
 ];
