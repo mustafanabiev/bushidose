@@ -223,7 +223,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 66),
+                  padding: const EdgeInsets.only(left: 15, top: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -231,7 +231,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                         text: 'Title:',
                         controller: titleCtl,
                       ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 22),
                       isTryMagic
                           ? DropdownBtnWidget(
                               text: 'line 1:',
@@ -244,7 +244,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                               text: 'Line 1:',
                               controller: line1Ctl,
                             ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 22),
                       isTryMagic
                           ? DropdownBtnWidget(
                               text: 'line 2:',
@@ -257,7 +257,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                               text: 'Line 2:',
                               controller: line2Ctl,
                             ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 22),
                       isTryMagic
                           ? DropdownBtnWidget(
                               text: 'line 3:',
@@ -282,7 +282,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                           textBaseline: TextBaseline.alphabetic,
                         ),
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 4),
                       SizedBox(
                         height: 50,
                         child: ListView.builder(
@@ -350,7 +350,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                           },
                         ),
                       ),
-                      const SizedBox(height: 54),
+                      const SizedBox(height: 44),
                       Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
