@@ -39,10 +39,23 @@ class DojoCubit extends Cubit<DojoState> {
   Future<void> _loadFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString('dojoState');
+
     if (jsonString != null) {
       final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
       final DojoState loadedState = DojoState.fromJson(jsonMap);
       emit(loadedState);
+    } else {
+      String todayDateString = DateTime.now().toString().split(' ')[0];
+      Map<String, List<DojoSelectModel>> newDojoSelectMap = {
+        ...state.dojoSelectMap,
+        todayDateString: _deepCopyList(dojoSelectList),
+      };
+
+      emit(DojoState(
+        dojoSelectMap: newDojoSelectMap,
+        selectedDate: todayDateString,
+      ));
+      _saveToPrefs();
     }
   }
 
