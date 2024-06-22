@@ -171,6 +171,23 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
         },
       );
 
+  void _showDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(message, textAlign: TextAlign.center),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -316,7 +333,7 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                               onTap: () {
                                 context
                                     .read<HaikuCubit>()
-                                    .saveImage(images[index]);
+                                    .saveImage(images[index], index);
                                 context
                                     .read<HaikuCubit>()
                                     .saveImageCount(index);
@@ -397,17 +414,28 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                               builder: (context, state) {
                                 return GestureDetector(
                                   onTap: () {
-                                    if (isTryMagic) {
-                                      if (titleCtl.text.isNotEmpty &&
-                                          lineValue1 != null &&
-                                          lineValue2 != null &&
-                                          lineValue3 != null &&
-                                          state.image != null) {
+                                    final state =
+                                        context.read<HaikuCubit>().state;
+                                    if (titleCtl.text.isNotEmpty &&
+                                        (isTryMagic
+                                            ? lineValue1 != null &&
+                                                lineValue2 != null &&
+                                                lineValue3 != null
+                                            : line1Ctl.text.isNotEmpty &&
+                                                line2Ctl.text.isNotEmpty &&
+                                                line3Ctl.text.isNotEmpty)) {
+                                      if (state.image != null) {
                                         final newHaiku = HaikuCreateModel(
                                           title: titleCtl.text,
-                                          line1: lineValue1 ?? '',
-                                          line2: lineValue2 ?? '',
-                                          line3: lineValue3 ?? '',
+                                          line1: isTryMagic
+                                              ? lineValue1 ?? ''
+                                              : line1Ctl.text,
+                                          line2: isTryMagic
+                                              ? lineValue2 ?? ''
+                                              : line2Ctl.text,
+                                          line3: isTryMagic
+                                              ? lineValue3 ?? ''
+                                              : line3Ctl.text,
                                           image: state.image!,
                                           date: DateFormat('dd MMMM, yyyy')
                                               .format(DateTime.now()),
@@ -447,110 +475,10 @@ class _HaikuCreatePageState extends State<HaikuCreatePage> {
                                           );
                                         }
                                       } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            Future.delayed(
-                                                const Duration(seconds: 1), () {
-                                              // ignore: use_build_context_synchronously
-                                              Navigator.pop(context);
-                                            });
-                                            return const AlertDialog(
-                                              title: SizedBox(
-                                                height: 100,
-                                                child: Center(
-                                                  child: Text(
-                                                    'Choose lines',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
+                                        _showDialog('Choose Background');
                                       }
                                     } else {
-                                      if (titleCtl.text.isNotEmpty &&
-                                          line1Ctl.text.isNotEmpty &&
-                                          line2Ctl.text.isNotEmpty &&
-                                          line3Ctl.text.isNotEmpty &&
-                                          state.image != null) {
-                                        final newHaiku = HaikuCreateModel(
-                                          title: titleCtl.text,
-                                          line1: line1Ctl.text,
-                                          line2: line2Ctl.text,
-                                          line3: line3Ctl.text,
-                                          image: state.image!,
-                                          date: DateFormat('dd MMMM, yyyy')
-                                              .format(DateTime.now()),
-                                          image2: null,
-                                          countImage:
-                                              state.selectedImageIndex ?? 0,
-                                        );
-                                        if (widget.isChange) {
-                                          if (widget.haikuCreateModel != null) {
-                                            context
-                                                .read<HaikuCubit>()
-                                                .updateHaiku(
-                                                  widget.haikuCreateModel!,
-                                                  newHaiku,
-                                                );
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PublishPage(
-                                                  newHaiku: newHaiku,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                        } else {
-                                          context
-                                              .read<HaikuCubit>()
-                                              .createNew(newHaiku);
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => PublishPage(
-                                                newHaiku: newHaiku,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            Future.delayed(
-                                                const Duration(seconds: 1), () {
-                                              // ignore: use_build_context_synchronously
-                                              Navigator.pop(context);
-                                            });
-                                            return const AlertDialog(
-                                              title: SizedBox(
-                                                height: 100,
-                                                child: Center(
-                                                  child: Text(
-                                                    'Fill in all the fields',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      }
+                                      _showDialog('Choose Lines');
                                     }
                                   },
                                   child: Container(
