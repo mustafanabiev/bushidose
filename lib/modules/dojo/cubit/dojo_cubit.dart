@@ -43,7 +43,15 @@ class DojoCubit extends Cubit<DojoState> {
     if (jsonString != null) {
       final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
       final DojoState loadedState = DojoState.fromJson(jsonMap);
-      emit(loadedState);
+      final String todayDateString = DateTime.now().toString().split(' ')[0];
+
+      // Check if the map contains today's date, if not add it
+      if (!loadedState.dojoSelectMap.containsKey(todayDateString)) {
+        loadedState.dojoSelectMap[todayDateString] =
+            _deepCopyList(dojoSelectList);
+      }
+
+      emit(loadedState.copyWith(selectedDate: todayDateString));
     } else {
       String todayDateString = DateTime.now().toString().split(' ')[0];
       Map<String, List<DojoSelectModel>> newDojoSelectMap = {
@@ -68,7 +76,7 @@ class DojoCubit extends Cubit<DojoState> {
     if (!state.dojoSelectMap.containsKey(dateString)) {
       state.dojoSelectMap[dateString] = _deepCopyList(dojoSelectList);
     }
-    emit(DojoState(
+    emit(state.copyWith(
       dojoSelectMap: Map.from(state.dojoSelectMap),
       selectedDate: dateString,
     ));
@@ -87,7 +95,7 @@ class DojoCubit extends Cubit<DojoState> {
     );
     updatedList[index] = updatedItem;
     state.dojoSelectMap[dateString] = updatedList;
-    emit(DojoState(
+    emit(state.copyWith(
       dojoSelectMap: Map.from(state.dojoSelectMap),
       selectedDate: dateString,
     ));

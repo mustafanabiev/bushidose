@@ -1,21 +1,5 @@
 part of 'dojo_cubit.dart';
 
-// class DojoState {
-//   const DojoState({
-//     required this.dojoSelectList,
-//   });
-
-//   final List<DojoSelectModel> dojoSelectList;
-
-//   DojoState copyWith({
-//     List<DojoSelectModel>? dojoSelectList,
-//   }) {
-//     return DojoState(
-//       dojoSelectList: dojoSelectList ?? this.dojoSelectList,
-//     );
-//   }
-// }
-
 class DojoState {
   final Map<String, List<DojoSelectModel>> dojoSelectMap;
   final String selectedDate;
@@ -46,6 +30,16 @@ class DojoState {
         ),
       ),
       selectedDate: json['selectedDate'],
+    );
+  }
+
+  DojoState copyWith({
+    Map<String, List<DojoSelectModel>>? dojoSelectMap,
+    String? selectedDate,
+  }) {
+    return DojoState(
+      dojoSelectMap: dojoSelectMap ?? this.dojoSelectMap,
+      selectedDate: selectedDate ?? this.selectedDate,
     );
   }
 }
